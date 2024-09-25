@@ -1,0 +1,61 @@
+import math as m
+
+def distance(a,b): #building my own distance tool, just so I can stop using fabs(a-b)
+    if a-b >= 0:
+        out=a-b
+        return(out)
+    if a-b < 0:
+        out=-(a-b)
+        return(out)
+
+def density_of_q(a,b):
+
+    r1=float(a)
+    r2=float(b)
+
+    if distance(r1,r2) != 0: #only testing for the distance > 0 part of the  hypothesis, because the program can't accept complex numbers at the moment.
+
+        print("These are valid inputs for the Density of Rational Numbers Theorem.")
+
+        nValue = ((m.ceil(1/distance(r1, r2)))+1) # the procedure for creating the n value relies on the archemidean property, and is here an adaptation of that property for the use of generating a useful integer
+        #print(str(distance(r1,r2))+ " should be greater than the 1/n value: " + str(1/nValue)) #!!
+        #print("should be greater than 1 " + str(distance(nValue*r1,nValue*r2)))
+        mValue = min((nValue*r1),(nValue*r2))
+
+        if mValue>=0:#the m value depends on a Lemma I found stating for x,y elements of R, if x-y >1, there exists an integer n such that x < n < y
+            #finale = m.ceil(mValue)+1 if the following line breaks everything, revert to this
+            finale = m.floor(mValue+1) #!!!!!**!!!!! I'm very skeptical: this feels like it shouldnt work
+        if mValue<0:
+            finale = m.floor(mValue)+1
+        #print("M value should be nx < m < ny") #!
+        #print(str(nValue*r1)+ " , " + str(finale) + " , " + str(nValue*r2)) #!
+
+        #rational = round(finale/nValue,decPlace(r1,r2))
+        rationalTemp = (finale/nValue)
+
+        print(str(min(r1,r2)) +" < "+str(rationalTemp)+" < "+str(max(r1,r2)))
+        print(str(rationalTemp)+" is a ratio of the integers " + str(finale)+"/"+str(nValue)+" and therefore rational.")
+    else:
+        print("The given values do not satisfy the hypothesis of the theorem:")
+        print("\"The distance between the two values must be nonzero.\"")
+
+#Start of program----------------
+print("This is a function to test the Density property of Rational numbers on the Reals.")
+print("Given two numbers, this program will check to see if they meet the conditions of the theorem,")
+print("and then return an example of a rational that satisfies the theorem.")
+
+looper = "y"
+
+while looper == "y":
+
+    print(" ")
+    rawA = input("Please input your first number ")
+    rawB = input("Please input your second number ")
+    print(" ")
+    density_of_q(rawA,rawB)
+    print(" ")
+    looper = input("Would you like to test another number? (y/n): ")
+
+print("Program ending.") #fin.
+
+
